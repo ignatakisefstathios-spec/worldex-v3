@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { Header } from "@/components/header";
 import { Dashboard } from "@/components/dashboard";
@@ -19,7 +18,7 @@ export default function Home() {
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return <Dashboard onNavigate={setActiveTab} />;
+        return <Dashboard onNavigate={(tab: string) => setActiveTab(tab as Tab)} />;
       case "products":
         return <Products />;
       case "lending":
@@ -33,7 +32,7 @@ export default function Home() {
       case "safety":
         return <Safety />;
       default:
-        return <Dashboard onNavigate={setActiveTab} />;
+        return <Dashboard onNavigate={(tab: string) => setActiveTab(tab as Tab)} />;
     }
   };
 
