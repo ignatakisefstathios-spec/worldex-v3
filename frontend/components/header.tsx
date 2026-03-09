@@ -1,10 +1,10 @@
 "use client";
-
 import { useState } from "react";
 import { Menu, X, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { injected } from "wagmi/connectors";
 import { formatAddress } from "@/lib/utils";
 
 export function Header() {
@@ -30,15 +30,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center justify-between px-4">
-        {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
             W
           </div>
           <span className="text-lg font-semibold">Worldex</span>
         </div>
-
-        {/* Wallet Button */}
         <div className="flex items-center gap-2">
           {isConnected ? (
             <Button
@@ -54,15 +51,13 @@ export function Header() {
             <Button
               variant="default"
               size="sm"
-              onClick={() => connect()}
+              onClick={() => connect({ connector: injected() })}
               className="gap-2"
             >
               <Wallet className="h-4 w-4" />
               Connect
             </Button>
           )}
-
-          {/* Menu Button */}
           <Button
             variant="ghost"
             size="icon"
@@ -72,8 +67,6 @@ export function Header() {
           </Button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
       <div
         className={cn(
           "overflow-hidden transition-all duration-300 ease-in-out",
@@ -82,7 +75,7 @@ export function Header() {
       >
         <nav className="border-t border-border/40 bg-background px-4 py-2">
           {navItems.map((item) => (
-            <a
+            
               key={item.label}
               href={item.href}
               className="flex items-center justify-between py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors border-b border-border/40 last:border-0"
