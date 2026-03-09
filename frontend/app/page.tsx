@@ -15,10 +15,14 @@ type Tab = "dashboard" | "products" | "lending" | "insurance" | "airdrop" | "por
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
 
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab as Tab);
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return <Dashboard onNavigate={(tab: string) => setActiveTab(tab as Tab)} />;
+        return <Dashboard onNavigate={handleTabChange} />;
       case "products":
         return <Products />;
       case "lending":
@@ -32,7 +36,7 @@ export default function Home() {
       case "safety":
         return <Safety />;
       default:
-        return <Dashboard onNavigate={(tab: string) => setActiveTab(tab as Tab)} />;
+        return <Dashboard onNavigate={handleTabChange} />;
     }
   };
 
@@ -42,7 +46,7 @@ export default function Home() {
       <main className="pb-20">
         {renderContent()}
       </main>
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
     </div>
   );
 }
